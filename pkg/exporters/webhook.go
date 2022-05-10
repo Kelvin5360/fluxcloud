@@ -52,7 +52,7 @@ func (s *Webhook) Send(c context.Context, client *http.Client, message msg.Messa
 		return err
 	}
 
-	if res.StatusCode != 200 {
+	if res.StatusCode < 200 || res.StatusCode > 299 {
 		log.Print("Could not post to Webhook, status: ", res.Status)
 		return errors.New(fmt.Sprintf("Could not post to Webhook, status: %d", res.StatusCode))
 	}
